@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>fade</title>
+    <script type="text/javascript" src="fade.js"></script>
+</head>
+<body>
+    <div id="DV" style="border:1px solid #bbb; width: 400px; height: 400px;"></div>
+    <input id="Button1" type="button" value="button" />   <!--渐隐-->
+    <input id="Button2" type="button" value="button" />   <!--渐显-->
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById('Button1').onclick = function () {
+            fadeout(document.getElementById('DV'), 0, 3000);
+        }
+        document.getElementById('Button2').onclick = function () {
+            fadein(document.getElementById('DV'), 80, 3000);
+        }
+    }
+</script>
+</html>
