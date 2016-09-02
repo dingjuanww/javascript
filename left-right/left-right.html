@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>fade</title>
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <style>
+        .allDiv{position:relative;margin:20px auto; width:440px;}
+        .left-right{height:125px;border:1px solid #bbb;}
+        .left{position:absolute;left:-50px;width:50px;height:50px;line-height:50px;text-align:center;border:1px solid #bbb;top:40px;cursor:pointer;z-index:999;}
+        .right{position:absolute;right:-50px;width:50px;height:50px;line-height:50px;text-align:center;border:1px solid #bbb;top:40px;cursor:pointer;z-index:999;}
+        .left-right{width:436px;overflow:hidden;}
+        .left-right ul{width:9999px;height:125px;zoom:1;padding:0;margin:0;}
+        .left-right ul li{float:left;width:107px;height:120px;line-height:120px;list-style:none;display:block;text-align:center;border:1px solid #ccc;}
+    </style>
+
+</head>
+<body>
+    <div class="allDiv">
+        <div class="left" id="cli-left">《</div>
+        <div class="left-right" id="clr">
+             <ul>
+                 <li>我是第一屏</li>
+                 <li>我是第二屏</li>
+                 <li>我是第三屏</li>
+                 <li>我是第四屏</li>
+                 <li>我是第五屏</li>
+                 <li>我是第六屏</li>
+                 <li>我是第七屏</li>
+             </ul>
+        </div>
+        <div class="right" id="cli-right">》</div>
+    </div>
+</body>
+<script type="text/javascript" src="left-right.js"></script>
+</html>
