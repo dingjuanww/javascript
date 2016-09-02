@@ -13,7 +13,6 @@
         .left-right ul{width:9999px;height:125px;zoom:1;padding:0;margin:0;}
         .left-right ul li{float:left;width:107px;height:120px;line-height:120px;list-style:none;display:block;text-align:center;border:1px solid #ccc;}
     </style>
-
 </head>
 <body>
     <div class="allDiv">
@@ -31,6 +30,25 @@
         </div>
         <div class="right" id="cli-right">》</div>
     </div>
+
 </body>
 <script type="text/javascript" src="left-right.js"></script>
+<script>
+    //jq实现新建元素的绑定事件：
+    var input = $("<input type='button' class='bunClick'>");
+    $('body').append(input);
+    $('body').on('click','.bunClick',function(){
+        console.log("1234565476");
+    });
+
+    //js实现新建元素的绑定事件：
+    var input1 = document.createElement("input");
+    input1.setAttribute("type","button");
+    input1.className="somBtn";
+    document.body.appendChild(input1);
+    input1.onclick = function(){
+        console.log("dfadsaf");
+    }
+
+</script>
 </html>
