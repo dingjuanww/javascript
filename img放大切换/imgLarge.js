@@ -8,6 +8,9 @@ window.onload = function(){
    var ul = document.getElementById('imgUl');
    var lis = ul.getElementsByTagName('li');
    var allImg = document.querySelectorAll('.picture');
+
+   var mark =  document.getElementById('mark');
+   var bigImgDiv = document.querySelector('.bigImgDiv');
    var left = document.getElementById('goLeft');
    var right = document.getElementById('goRight');
    var pictureArr = [];
@@ -30,6 +33,7 @@ window.onload = function(){
    //将所有图片的路径保存到一个数组中
    function arryImg(index){
        var j = 0;
+       pictureArr = [];
        for(;j<allImg.length;j++){
            pictureArr.push(allImg[j].src);
        }
@@ -43,8 +47,6 @@ window.onload = function(){
    }
    //展示放大点击的那张图片
    function showImg(src){
-        var mark =  document.getElementById('mark');
-        var bigImgDiv = document.querySelector('.bigImgDiv');
         var imgShow = document.getElementById('imgShow');
         var img = imgShow.getElementsByTagName('img')[0];
         img.setAttribute("src",src);
@@ -72,7 +74,7 @@ window.onload = function(){
 
    right.onclick = function(){
        console.log(pictureArr,$index,currPic);
-       if($index == 0){
+       if($index == pictureArr.length){
            console.log('右边到头了');
            return;
        }else{
@@ -86,7 +88,20 @@ window.onload = function(){
            }
        }
        console.log($index,currPic);
-   }
+   };
+
+   //点击屏幕关闭关闭遮罩层和图片放大层
+   mark.onclick = function(){
+       mark.style.cssText = "display:none;";
+       bigImgDiv.style.cssText = "display:none;";
+   };
+   bigImgDiv.onclick = function(e){
+       //注意这里要阻止冒泡事件，点击里面的子元素弹层也会关闭
+       if(e.target == e.currentTarget){  //当监听事件的元素（currentTarget）与事件的发起者（target）相同时
+           mark.style.cssText = "display:none;";
+           bigImgDiv.style.cssText = "display:none;";
+       }
+   };
 
 };
 
