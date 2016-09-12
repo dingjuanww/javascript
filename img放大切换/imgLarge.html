@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PC端图片放大并左右切换</title>
+    <style>
+        .allImg{margin-top:50px;}
+        .smlImg ul{width:400px;}
+        .smlImg ul li{list-style:none;float:left;width:60px;height:100px;margin-left:20px;}
+        .smlImg ul li img{width:100%;}
+        /*图片放大*/
+        #mark{width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.6);display:none;}
+        .bigImgDiv{background:#fff;z-index:999;position:fixed;top:50px;left:20px;display:none;}
+        .ctrGroup{border:1px solid #ccc;width:110px;margin:10px auto 10px;height:35px;line-height:33px;border-radius:18px;text-align:center;}
+        .ctrGroup span:first-child{margin-right:10px;}
+    </style>
+</head>
+<body>
+    <div class="allImg">
+        <div class="smlImg">
+            <ul id="imgUl">
+                <li><img class="picture" src="./images/p1.jpg"></li>
+                <li><img class="picture" src="./images/p2.jpg"></li>
+                <li><img class="picture" src="./images/p3.jpg"></li>
+                <li><img class="picture" src="./images/p4.jpg"></li>
+                <li><img class="picture" src="./images/p5.jpg"></li>
+                <li><img class="picture" src="./images/p6.jpg"></li>
+                <li><img class="picture" src="./images/p7.jpg"></li>
+                <li><img class="picture" src="./images/p8.jpg"></li>
+                <li><img class="picture" src="./images/p9.jpg"></li>
+                <li><img class="picture" src="./images/p10.jpg"></li>
+                <li><img class="picture" src="./images/p11.jpg"></li>
+            </ul>
+        </div>
+    </div>
+    <!--图片放大-->
+    <div id="mark"></div>
+    <div class="bigImgDiv">
+        <div class="bigImg" id="imgShow"><img src=""></div>
+        <div class="ctrGroup">
+            <span id="goLeft">《</span>
+            <span id="goRight">》</span>
+        </div>
+    </div>
+</body>
+<script src="imgLarge.js"></script>
+</html>
