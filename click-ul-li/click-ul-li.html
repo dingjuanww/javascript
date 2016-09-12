@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--点击li1 alert1，点击li2 alert2-->
+<!--使用原生js-->
+
+<!--冒泡方式-->
+<ul id="list1">
+    <li>我是1</li>
+    <li>我是2</li>
+    <li>我是3</li>
+    <li>我是4</li>
+    <li>我是5</li>
+</ul>
+
+<!--闭包方式-->
+<ul id="list2">
+    <li>我是1</li>
+    <li>我是2</li>
+    <li>我是3</li>
+    <li>我是4</li>
+    <li>我是5</li>
+</ul>
+
+<script>
+    //冒泡方式
+    var ul = document.getElementById('list1');
+//    var lis = document.querySelectorAll('#list1 li');
+    var lis = ul.getElementsByTagName('li');
+    ul.onclick = function(e){
+        var src = e.target;
+        for(var i = 0;i < lis.length;i++){
+            console.log(lis);
+            if(lis[i] == src){
+                console.log(i+1);
+                return false;
+            }
+        }
+    };
+
+    //闭包方式
+    var list2 = document.querySelectorAll('#list2 li');
+    for(var n = 0;n < list2.length;n++){
+        (function(n){
+            list2[n].onclick = function(){
+                console.log(n+1);
+            }
+        }(n))
+    }
+
+</script>
+</body>
+</html>
