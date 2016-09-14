@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js数组去重去空格、字符串去空格</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <script type="text/javascript" src="common.js"></script>
+    <style>
+        /*手机端错误提示框javascript*/
+        #alert_msg{position:fixed;top:35%;left:10%;width:80%;height:40px;line-height:40px;color:#fff;text-align:center;background:rgba(0,0,0,.7);border-radius:5px;display:none;}
+        .alert_fadeIn{display:block;opacity:1;}
+        .alert_fadeOut{animation:fadeOut 2s linear;-webkit-animation:fadeOut 2s linear;}
+        @keyframes fadeOut{
+            0%{opacity:1;}
+            25%{opacity:0.75;}
+            50%{opacity:0.5;}
+            100%{opacity:0;}
+        }
+        @-webkit-keyframes fadeOut{
+            0%{opacity:1;}
+            25%{opacity:0.75;}
+            50%{opacity:0.5;}
+            100%{opacity:0;}
+        }
+    </style>
+</head>
+<body>
+    <div>我是不重要的测试内容，请看浏览器的console</div>
+    <!--手机端错误提示框javascript-->
+    <div class="btn" id="btnEro1" style="width:35px;border:1px solid #ddd;margin-top:20px;padding:5px 10px;text-align:center;">错误1</div>
+    <div class="btn" id="btnEro2" style="width:35px;border:1px solid #ddd;margin-top:20px;padding:5px 10px;text-align:center;">错误2</div>
+
+</body>
+<script>
+    //数组去重
+    var arr = [112,112,34,'你好',112,112,34,'你好','str','str1'];
+    console.log(arr.unique());  //返回一个新的数组
+
+    //数组去空
+    var arr2 = ['',12,78,'','hello','蓝胖子','',567,12,'','str'];
+    console.log(filterWhiteNode(arr2));
+
+    //字符串去空格
+    var str = "dafhj fdlsj dasklfj ";
+    console.log("字符串长度为："+str.length);   //输出20
+    console.log("得到字符串中指定的那个字符："+str.charAt(1)); //返回指定的字符的下标对应的字符。意思是在0-str.length之间，输出下标为1的那个字符--a
+    console.log(trimAll(str,"g") + "~~~~~去掉所有空格之后的字符串长度为："+trimAll(str,"g").length);
+    console.log(trimPart(str) + "~~~~~去掉前后空格之后的字符串长度为："+trimPart(str).length);
+
+    /*
+    * 创建一个构造函数Mystring(),这个构造函数，要等同于String()对象。如下的案例：
+    * var bar = new String('hello');
+      console.log(bar);  //String {0: "h", 1: "e", 2: "l", 3: "l", 4: "o", length: 5, [[PrimitiveValue]]: "hello"}
+      console.log(bar.length);  //5
+      console.log(bar instanceof String);  //true
+      console.log(typeof bar);  //object
+    * */
+    function Mystring(value){
+        var str = new String(value);
+        return str;
+    }
+    var strValue = new Mystring("hello");
+    console.log(strValue instanceof String);
+    console.log(strValue.length);
+    console.log(strValue.charAt(1));
+    console.log(strValue.split('e'));
+    console.log(strValue.concat(' world'));
+
+    //手机端错误提示框javascript
+    var alert1 = new myMaskMsg();
+    document.getElementById("btnEro1").onclick = function(){
+        alert1.show('我是错误1信息。。。');
+    };
+    document.getElementById("btnEro2").onclick = function(){
+        alert1.show('我是错误2信息。。。');
+    };
+    console.log(alert1.constructor);
+
+    //函数申明与函数表达式不同
+    /*
+    * 下面是第一种不同，声明和执行时候的不同
+    *
+    function test(){console.log("123");}
+    test();
+
+    var test1 = function(){console.log("456");}
+    test1();
+
+    var test2 = function test3(){console.log("789");}
+    test2();
+     */
+
+    /*
+    * 下面是第二种不同，结合上下文执行的不同
+    * test1()，会打印出test1 is not a function()
+    *
+    test();
+    function test(){console.log("hhaha");}
+
+    test1();
+    var test1 = function(){console.log("lalala");}
+     */
+
+    /*
+    * 下面是第三种不同，函数声明提前，那函数声明会在代码执行前解析。注意解析顺序
+    * */
+    if(1){
+        function test(){console.log("123");}
+    }else{
+        function test(){console.log("456");}
+    }
+    test();
+
+    var test1;
+    if(1){
+        test1 = function test2(){console.log("lalal");}
+    }else{
+        test1 = function test2(){console.log("hahah");}
+    }
+    test1();
+
+    //来看一个特例
+    function foo(){
+        function bar() {
+            return 3;
+        }
+        return bar();
+        function bar() {
+            return 8;
+        }
+    }
+    alert(foo());
+
+</script>
+</html>

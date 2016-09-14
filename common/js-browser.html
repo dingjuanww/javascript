@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js浏览器嗅探器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <script type="text/javascript" src="browser.js"></script>
+</head>
+<body>
+    <div>我是不重要的测试内容，请看浏览器的console</div>
+</body>
+<script>
+    console.log(BrowserDetect.browser);  //输出浏览器的名称，比如：Firefox，IE，Chrome
+    console.log(BrowserDetect.version);  //输出浏览器的版本，比如：7、11
+    console.log(BrowserDetect.OS); //浏览器所宿主的操作系统，比如Windows、Linux
+</script>
+</html>
