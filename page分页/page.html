@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script type="text/javascript" src="jquery-2.1.3.min.js"></script>
+    <style>
+        .page-total{float:left;margin-top:20px; margin-right:10px;}
+    </style>
+</head>
+<body>
+  <table>
+      <thead>
+          <tr>
+              <td style="padding-right:10px;">标签</td>
+              <td>内容</td>
+          </tr>
+      </thead>
+      <tbody id="tbody">
+          <tr>
+              <td>1</td>
+              <td>我是内容1</td>
+          </tr>
+          <tr>
+              <td>1</td>
+              <td>我是内容1</td>
+          </tr>
+      </tbody>
+  </table>
+  <!--底部分页--star-->
+  <div id="pageDown">
+
+  </div>
+  <!--底部分页--end-->
+</body>
+<script>
+    var allNum = 5;
+    var count = 2;
+    var page = 1;
+    init(page);
+    function init(page){
+        page=Number(page) ? Number(page):1;
+        $.ajax({
+            url:'page.json',
+            type:'post',
+            data:{'page':page},
+            dataType:'JSON',
+            cache: false
+        }).done(function(rt){
+            console.log(rt);
+            var num = Math.ceil(allNum/count);
+            var sts='',cen=[];
+            if(num<=5){
+                for(var i =1;i<num-1;i++){
+                    sts='<li><a href="http://&page='+Number((i+page))+'">'+Number(i+page)+'</a></li>';
+                    cen.push(sts);
+                }
+                if(page ==1){
+                    if(num==1){
+                        $("#pageDown").html('<div class="page-foot">'+
+                                '<div class="page-h">'+
+                                '<nav>'+
+                                '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="1"/> 页</span>'+
+                                '<ul class="pagination">'+
+                                '<li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                '<li class="active"><a href="#">'+Number(page)+'</a></li>'+
+                                '<li class="disabled"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                '</ul>'+
+                                '</nav>'+
+                                '</div>'+
+                        '</div>');
+                    }else{
+                        $("#pageDown").html('<div class="page-foot">'+
+                                '<div class="page-h">'+
+                                '<nav>'+
+                                '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="1"/> 页</span>'+
+                                '<ul class="pagination">'+
+                                '<li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                cen.join('')+
+                                '<li><a href="http://&page='+Number((page+1))+'"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                '</ul>'+
+                                '</nav>'+
+                                '</div>'+
+                         '</div>');
+                    }
+                }
+                if(page ==2){
+                    if(num ==2){
+                        $("#pageDown").html('<div class="page-foot">'+
+                            '<div class="page-h">'+
+                                '<nav>'+
+                                '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                '<ul class="pagination">'+
+                                '<li><a href="http://&page='+Number((page-1))+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                '<li><a href="http://&page='+Number((page-1))+'">'+Number(page-1)+'</a></li>'+
+                                '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                '<li class="disabled"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                '</ul>'+
+                                '</nav>'+
+                            '</div>'+
+                        '</div>');
+                    }else{
+                        $("#pageDown").html('<div class="page-foot">'+
+                            '<div class="page-h">'+
+                                '<nav>'+
+                                    '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                    '<ul class="pagination">'+
+                                        '<li class="disabled"><a href="http://&page='+Number(page-1)+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                        '<li><a href="http://&page='+Number(page-1)+'">'+Number(page-1)+'</a></li>'+
+                                        '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                        cen.join('')+
+                                        '<li><a href="http://&page='+Number(page+1)+'"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                    '</ul>'+
+                                '</nav>'+
+                            '</div>'+
+                        '</div>');
+                    }
+                }
+                if(page ==3){
+                    if(num ==3){
+                        $("#pageDown").html('<div class="page-foot">'+
+                                '<div class="page-h">'+
+                                '<nav>'+
+                                '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                '<ul class="pagination">'+
+                                '<li><a href="http://&page='+Number((page-1))+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                '<li><a href="http://&page='+Number((page-2))+'">'+Number(page-2)+'</a></li>'+
+                                '<li><a href="http://&page='+Number((page-1))+'">'+Number(page-1)+'</a></li>'+
+                                '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                '<li class="disabled"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                '</ul>'+
+                                '</nav>'+
+                                '</div>'+
+                                '</div>');
+                    }else{
+                        $("#pageDown").html('<div class="page-foot">'+
+                            '<div class="page-h">'+
+                                '<nav>'+
+                                    '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                    '<ul class="pagination">'+
+                                        '<li class="disabled"><a href="http://&page='+Number(page-1)+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                        '<li><a href="http://&page='+Number(page-2)+'">'+Number(page-2)+'</a></li>'+
+                                        '<li><a href="http://&page='+Number(page-1)+'">'+Number(page-1)+'</a></li>'+
+                                        '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                        (num==4 ? '<li><a href="http://&page='+Number(num)+'">'+Number(num)+'</a></li>':'<li><a href="http://&page='+Number(page+1)+'">'+Number(page+1)+'</a></li><li><a href="http://&page='+Number(num)+'">'+Number(num)+'</a></li>')+
+                                        '<li><a href="http://&page='+Number(page+1)+'"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                    '</ul>'+
+                                '</nav>'+
+                             '</div>'+
+                         '</div>');
+                    }
+                }
+                if(page ==4){
+                    if(num ==4){
+                        $("#pageDown").html('<div class="page-foot">'+
+                             '<div class="page-h">'+
+                                '<nav>'+
+                                    '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                    '<ul class="pagination">'+
+                                        '<li><a href="http://&page='+Number((page-1))+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                        '<li><a href="http://&page='+Number((page-3))+'">'+Number(page-3)+'</a></li>'+
+                                        '<li><a href="http://&page='+Number((page-2))+'">'+Number(page-2)+'</a></li>'+
+                                        '<li><a href="http://&page='+Number((page-1))+'">'+Number(page-1)+'</a></li>'+
+                                        '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                        '<li class="disabled"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                    '</ul>'+
+                                '</nav>'+
+                             '</div>'+
+                        '</div>');
+                    }else{
+                        $("#pageDown").html('<div class="page-foot">'+
+                                '<div class="page-h">'+
+                                '<nav>'+
+                                '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                '<ul class="pagination">'+
+                                '<li class="disabled"><a href="http://&page='+Number(page-1)+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                '<li><a href="http://&page='+Number(page-3)+'">'+Number(page-3)+'</a></li>'+
+                                '<li><a href="http://&page='+Number(page-2)+'">'+Number(page-2)+'</a></li>'+
+                                '<li><a href="http://&page='+Number(page-1)+'">'+Number(page-1)+'</a></li>'+
+                                '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                '<li><a href="http://&page='+Number(page+1)+'">'+Number(page+1)+'</a></li>'+
+                                '<li><a href="http://&page='+Number(page+1)+'"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                '</ul>'+
+                                '</nav>'+
+                                '</div>'+
+                                '</div>');
+                    }
+                }
+                if(page ==5){
+                    if(num ==5){
+                        $("#pageDown").html('<div class="page-foot">'+
+                                '<div class="page-h">'+
+                                '<nav>'+
+                                '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                '<ul class="pagination">'+
+                                '<li><a href="http://&page='+Number((page-1))+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                '<li><a href="http://&page='+Number((page-4))+'">'+Number(page-4)+'</a></li>'+
+                                '<li><a href="http://&page='+Number((page-3))+'">'+Number(page-3)+'</a></li>'+
+                                '<li><a href="http://&page='+Number((page-2))+'">'+Number(page-2)+'</a></li>'+
+                                '<li><a href="http://&page='+Number((page-1))+'">'+Number(page-1)+'</a></li>'+
+                                '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                '<li class="disabled"><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                '</ul>'+
+                                '</nav>'+
+                                '</div>'+
+                                '</div>');
+                    }
+                }
+            }
+            if(num>5){
+                if(page==1){
+                    $("#pageDown").html('<div class="page-foot">'+
+                            '<div class="page-h">'+
+                            '<nav>'+
+                            '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="1"/> 页</span>'+
+                            '<ul class="pagination">'+
+                            '<li class="disabled"><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                            '<li class="active"><a href="#">'+Number(page)+'</a></li>'+
+                            '<li><a href="http://&page='+Number((page+1))+'">'+Number((page+1))+'</a></li>'+
+                            '<li><a href="http://&page='+Number((page+2))+'">'+Number((page+2))+'</a></li>'+
+                            '<li><a href="http://&page='+Number((page+3))+'">'+Number((page+3))+'</a></li>'+
+                            '<li><a href="http://&page='+Number((page+4))+'">'+Number((page+4))+'</a></li>'+
+                            '<li><a href="http://&page='+Number((page+1))+'"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                            '</ul>'+
+                            '</nav>'+
+                            '</div>'+
+                            '</div>');
+                }else if(page==2){
+                    $("#pageDown").html('<div class="page-foot">'+
+                            '<div class="page-h">'+
+                            '<nav>'+
+                            '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="2"/> 页</span>'+
+                            '<ul class="pagination">'+
+                            '<li><a href="http://&page='+(Number(page)-1)+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                            '<li><a href="http://&page='+(Number(page)-1)+'">'+(Number(page)-1)+'</a></li>'+
+                            '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                            '<li><a href="http://&page='+(Number(page)+1)+'">'+(Number(page)+1)+'</a></li>'+
+                            '<li><a href="http://&page='+(Number(page)+2)+'">'+(Number(page)+2)+'</a></li>'+
+                            '<li><a href="http://&page='+(Number(page)+3)+'">'+(Number(page)+3)+'</a></li>'+
+                            '<li><a href="http://&page='+(Number(page)+1)+'"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                            '</ul>'+
+                            '</nav>'+
+                            '</div>'+
+                            '</div>');
+                }else if(page < num){
+                    $("#pageDown").html('<div class="page-foot">'+
+                        '<div class="page-h">'+
+                            '<nav>'+
+                                '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                                '<ul class="pagination">'+
+                                    '<li><a href="http://&page='+(Number(page)-1)+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                                    '<li><a href="http://&page='+Number((page-2))+'">'+Number((page-2))+'</a></li>'+
+                                    '<li><a href="http://&page='+Number((page-1))+'">'+Number((page-1))+'</a></li>'+
+                                    '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                                    ''+(page == (num-2) ? '<li><a href="http://&page='+Number(page+1)+'">'+Number(page+1)+'</a></li><li><a href="http://&page='+Number(num)+'">'+Number(num)+'</a></li>' : (page ==(num-1) ? '<li><a href="http://&page='+Number(num)+'">'+Number(num)+'</a></li>':'<li><a href="http://&page='+Number(page+1)+'">'+Number(page+1)+'</a></li><li><a href="http://&page='+Number(page+2)+'">'+Number(page+2)+'</a></li>'))+''+
+                                    '<li><a href="http://&page='+Number((page+1))+'"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                                '</ul>'+
+                            '</nav>'+
+                        '</div>'+
+                    '</div>');
+
+                }else if(page == num){
+                    $("#pageDown").html('<div class="page-foot">'+
+                        '<div class="page-h">'+
+                            '<nav>'+
+                            '<span class="page-total">共'+ allNum +'条，每'+count+'页条  跳转到 <input type="text" style="width:30px;height:30px;border:1px solid #d0d0d0;" value="'+Number(page)+'"/> 页</span>'+
+                            '<ul class="pagination">'+
+                            '<li><a href="http://&page='+Number((page-1))+'"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>'+
+                            '<li><a href="http://&page='+Number((page-3))+'">'+Number((page-3))+'</a></li>'+
+                            '<li><a href="http://&page='+Number((page-2))+'">'+Number((page-2))+'</a></li>'+
+                            '<li><a href="http://&page='+Number((page-1))+'">'+Number((page-1))+'</a></li>'+
+                            '<li class="active"><a href="http://&page='+Number(page)+'">'+Number(page)+'</a></li>'+
+                            '<li class="disabled""><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>'+
+                            '</ul>'+
+                            '</nav>'+
+                        '</div>'+
+                    '</div>');
+                }
+
+            }
+
+            //分页
+            $("#pageDown .pagination li").each(function(){
+                var $this=$(this);
+                if (!$this.hasClass("active")&&!$this.hasClass("disabled")) {
+                    var href=$this.find("a").attr("href");
+                    var pageReg = new RegExp("(^|&)page=([^&]*)(&|$)");
+                    var liPage = href.substr(1).match(pageReg);
+                    liPage = liPage?liPage[2]:'';
+                    console.log(liPage);
+                    $this.find("a").attr("href","javascript:init("+liPage+");");
+                }
+            });
+            $("#pageDown input").attr("onkeydown","Page_keyDown(event,"+num+",this);");
+
+        })
+    }
+    //分页中输入框中输入的数
+    function Page_keyDown(e,num,thef){
+        if(window.event) {
+            keynum = e.keyCode;
+        }else if(e.which) {
+            keynum = e.which;
+        }
+        if(thef.value >= num){
+            thef.value=num;
+        }
+        page = thef.value;
+        numcheck = /\d+/;
+        if(keynum==13){
+            if(!numcheck.test(page)){
+                alert("必须输入数字");
+            }else{
+                init(page)
+            }
+        }
+    }
+
+</script>
+</html>
