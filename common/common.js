@@ -3,7 +3,6 @@
  * alert = new myMaskMsg();初始化，只用初始化一次就好了
  *  alert.show('我是错误1信息。。。');赋值
  * */
-
 function myMaskMsg(){
    this.modalMsg = document.createElement('div');
    this.modalMsg.id = 'alert_msg';
@@ -25,6 +24,17 @@ function setAnimation($this){
    setTimeout(function(){
         $this.modalMsg.style.cssText = 'display:none;';
    },2000);
+}
+
+/*
+* 禁止浏览器页面内容滑动
+* */
+var stopTouchmove =  function (e) {e.preventDefault();} //禁止浏览器滑动
+function addStopTouchmove(){
+    document.querySelector('.allDiv').addEventListener('touchmove',stopTouchmove);
+}
+function removeStopTouchmove(){
+    document.querySelector('.allDiv').addEventListener('touchmove',stopTouchmove);
 }
 
 /*
@@ -82,39 +92,13 @@ function trimPart(str){
 }
 
 /*
-* 获取链接中url带过来的单个参数的值
-* */
-function getHrefValue(name){
-    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) {
-        return unescape(r[2]);
-    }
-    return null;
-}
-
-/*
-* 获取链接中url带过来的多个参数的值
-* 以数组的形式输出
-* */
-function getQueryString(){
-    var result = location.search.match(new RegExp("[\?\&][^\?\&]+=[^\?\&]+","g"));
-    if(result == null){
-        return "";
-    }
-    for(var i = 0; i < result.length; i++){
-        result[i] = result[i].substring(1);
-    }
-    return result;
-}
-
-/*
  * 时间转码：将中国时间转化为标准时间
  * /*$watch监听输入框中的时间变化*/
-//$scope.dt 是ng-model="dt",监听
+ //$scope.dt 是ng-model="dt",监听
 //$scope.$watch("dt",function(){
 //    console.log(formatTime($scope.dt,"yyyy-MM-dd"));
 //});
+
 function formatTime(time, format){
     var t = new Date(time);
     var tf = function(i){return (i < 10 ? '0' : "") + i};
