@@ -16,3 +16,5 @@
  新增了适用于PC端的分页，为了快速布局，用了jquery结合bootstrap的样式来做，没有封装，有空会封装成一个方法。
  
  新增了common文件夹：浏览器嗅探器browser.js、公共方法common.js
+ 
+ 新增了modal-popover文件夹：用原始的bootstrap插件来完成modal和popover框，不依赖其他改写方式。
