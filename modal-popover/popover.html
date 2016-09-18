@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap实例 - 带尖括号的弹框（popover）插件</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="jquery-2.1.3.min.js"></script>
+    <script src="bootstrap.js"></script>
+</head>
+<body>
+     <h2>创建弹框（popover）</h2>
+     <div style="margin-left:20px;margin-top:20px;"><a href="javascript:;" class="js-confirm-del">删除</a></div>
+</body>
+<script type="text/javascript">
+    window.onload = function(){
+        $(".js-confirm-del").popover({  //根据bootstrap.js来看，popover放出了placement框在左边还是右边、trigger触发方式、content框的内容，他有一个默认的模板，template属性，这里将content中的内容替换了template。
+            trigger: 'click',
+            placement: 'right',
+            html: 'true',  //根据bootstrap官网介绍，这个是保证template属性输出的是html模板，false则表示输出html字符。这个如果用content内容替换了template，那么这个属性将没用。
+            content: '<div id="popOverBox"><div style="line-height:40px;">确定要删除?</div><button class="btn btn-primary mr15 js-confirm">确定</button><button class="btn btn-default js-cancel">取消</button></div>',
+            animation: true  //为true就有一个渐显渐隐的效果。
+            //更多属性配置可以查看bootstrap官网
+
+        }).on('shown.bs.popover',function(){   //popover框出来之后执行回调，这里不能用show.bs.popover因为在出来之前执行回调一般是设置展示内容的，如果用了，那一些元素绑定的事件将不生效。
+            $('.js-cancel').click(function () {
+                $('.js-confirm-del').popover('hide');
+            });
+            var elem = this;
+            var pId = $(this).attr('data-id');
+            $(this).parents('tr').siblings().find('.popover').hide();
+            $('.js-confirm').click(function () {   //点击确定按钮，执行操作
+                $('.js-confirm-del').popover('hide');
+                $.ajax({
+                    url: '/admin/purchaser/XXXXX.html',
+                    dataType: 'json',
+                    type: 'POST',
+                    data: {
+                        pId: pId,
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        if (response.code == '1') {
+                            console.log(response.msg);
+                            window.location.reload();
+                        } else {
+                            console.log("删除异常");
+                        }
+                    }
+                })
+            });
+        });
+
+    }
+
+</script>
+</html>

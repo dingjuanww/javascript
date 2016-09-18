@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap实例 - 模态框（Modal）插件</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <script src="jquery-2.1.3.min.js"></script>
+    <script src="bootstrap.js"></script>
+</head>
+<body>
+    <h2>创建模态框（Modal）</h2>
+    <!-- 触发模态框 data-target=""关联模态框的Id-->
+    <div class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">查看模态框</div>
+    <div id="showModal">
+
+    </div>
+
+</body>
+<script type="text/javascript">
+    window.onload = function(){
+        var myModal = document.getElementById('myModal');
+        var myModalTitle = document.getElementById('myModalLabel');
+        $('#showModal').load('myModal.html');  //jquery.load方法来导入modal模板
+
+        $("#myModal").modal({  //  根据bootstrap.js源码来看，modal插件放出的接口，有以下三个
+            backdrop: true,  //控制背景颜色的,false就是没有背景颜色,true就是黑色的
+            show:false,    //初始化模态框默认是显示还是隐藏
+            keyboard: true  //当按下 escape 键时关闭模态框，设置为 false 时则按键无效。
+
+        }).on('show.bs.modal',function(){  //modal出来之前就执行了回调
+            myModalTitle.innerHTML = '我的modal框';
+            var content = document.querySelector('.modal-body');
+            content.innerHTML = '<div class="">我是modal框内容</div><p>换行的内容</p>';
+
+        });
+
+    };
+
+</script>
+</html>
