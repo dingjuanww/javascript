@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>将对象转换为数组实例</title>
+</head>
+<body>
+     <div style="margin-top:20px;">将对象转换为数组实例</div>
+     <div style="margin-top:20px;">
+         var arr = {12:{"name":"123","age":"345"},13:{"name":"df","age":"asg"}};
+     </div>
+</body>
+<script type="text/javascript">
+    var arr = {12:{"name":"123","age":"345"},13:{"name":"df","age":"asg"}};
+    console.log(arr[0]);  //这样打印出来的结果是 undefined
+    //一般我们获取对象的属性的值是：arr['12']或者是arr.12
+    //那如果对象属性有很多，根本不知道哪个属性的值，想要写成下标取值呢（arr[0]）？需要下面的方法：
+    function getObjByIndex(arrObj,index) {
+        var j = 0;
+        for (var i in arrObj) {
+            if (j >= index) {
+                j = i;
+                break;
+            }
+            j++;
+        }
+        return arrObj[j];
+    }
+    console.log(getObjByIndex(arr,1));
+
+</script>
+</html>
