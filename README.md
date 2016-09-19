@@ -20,3 +20,8 @@
  新增了modal-popover文件夹：用原始的bootstrap插件来完成modal和popover框，不依赖其他改写方式。
  
  新增了start文件夹：加星减星，星级评分。
+ 
+ 新增了基于jquery的插件jquery.json.js：这个插件实现了JSON对象与JSON字符串之间的转换。尽管可以用js自带的objstr=JSON.stringify(obj)/JSON.parse()、eval()转换，但是用这个插件将更智能的获取JSON字符串的值：$.evalJSON(objstr).name，同时用了这个插件，JSON对象转JSON字符串就很简单了objstr=$.toJSON(obj)。
+ 
+ 
+ 
