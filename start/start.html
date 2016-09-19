@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星级评分</title>
+    <style>
+        .startAll ul li{list-style:none;margin:20px;cursor:pointer;float:left;border:1px solid #ddd;width:20px;height:20px;}
+        .startAll ul li.cf44{border:1px solid #f6c744;}
+    </style>
+</head>
+<body>
+    <div class="startAll">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+<script>
+    window.onload = function(){
+        var all = document.querySelector('.startAll');
+        var ul = all.getElementsByTagName('ul')[0];
+        var lis = ul.getElementsByTagName('li');
+        ul.onclick = function(e){
+            var ev = e.target;
+            for(var i in lis){
+                if(lis[i] == ev){
+                    var index = Number(Number(i)+1); //第几个星星
+                    console.log(index);
+                    //加星星,如果异步的话，传参星星数就是 Number(Number(i)+1)
+                    //当点击的星星没有被选中，就选中当前以及当前所有的星星，即加星
+                    if(lis[i].className==''){
+                        for(var j=0;j<index;j++){
+                            lis[j].className = 'cf44';
+                        }
+                    }else{ //当点击的星星是已经选中的，就取消选中星星后面所有的星星，即减星
+                        for(var j=index;j<lis.length;j++){
+                            lis[j].className = '';
+                        }
+                    }
+
+                }
+            }
+        };
+    };
+
+
+</script>
+</html>
