@@ -18,3 +18,5 @@
  新增了common文件夹：浏览器嗅探器browser.js、公共方法common.js
  
  新增了modal-popover文件夹：用原始的bootstrap插件来完成modal和popover框，不依赖其他改写方式。
+ 
+ 新增了start文件夹：加星减星，星级评分。
