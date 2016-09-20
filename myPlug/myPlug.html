@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>js组件</title>
+   <style>
+       .markAll{margin:20px;}
+       em{font-style:normal;}
+       /*消息提示框*/
+       #popMark{position:fixed;width:80%;padding:15px;background:rgba(0,0,0,.8);color:#fff;display:none;}
+       .markText{text-align:center;}
+       .alert_fadeIn{opacity:1;}
+       .alert_fadeOut{animation:fadeOut 2s linear;-webkit-animation:fadeOut 2s linear;}
+       @keyframes fadeOut{
+           0%{opacity:1;}
+           25%{opacity:0.75;}
+           50%{opacity:0.5;}
+           100%{opacity:0;}
+       }
+       @-webkit-keyframes fadeOut{
+           0%{opacity:1;}
+           25%{opacity:0.75;}
+           50%{opacity:0.5;}
+           100%{opacity:0;}
+       }
+       /*modal带按钮弹框*/
+       #myMark{width:100%;height:100%;position:fixed;top:0;left:0;background:rgba(0,0,0,.7);display:none;}
+       #myModal{position:fixed;width:60%;background:#fff;border-radius:5px;display:none;}
+       .myMsg{padding:25px 10px;text-align:center;}
+       .myBtn{display:block;}
+       .myBtn .btnStyle{width:49.5%;height:40px;border-top:1px solid #ddd;text-align:center;float:left;line-height:40px;color:#20a3fe;}
+       .myBtn .leftBtn{border-right:1px solid #ddd;}
+
+   </style>
+</head>
+<body>
+    <div id="errorTest1" class="markAll"><em>测试错误框1</em></div>
+    <div id="errorTest2" class="markAll"><em>测试错误框2</em></div>
+    <div id="errorTest3" class="markAll"><em>测试modal框</em></div>
+</body>
+<script type="text/javascript" src="myPlug.js"></script>
+<script>
+    window.onload = function(){
+        /******消息提示框*****适用于手机端和PC端********************/
+        myPopPlug.init(); //一次初始化，创建好元素，执行事件的时候再赋值提示信息
+        var test1 = document.getElementById("errorTest1");
+        var test2 = document.getElementById("errorTest2");
+        test1.onclick = function(){
+             myPopPlug.show('我是错误信息1');
+        };
+        test2.onclick = function(){
+            myPopPlug.show('我是错误信息2');
+        };
+        /******modal带按钮弹框*****适用于手机端**************************/
+        var test3 = document.getElementById("errorTest3");
+        var myModal = new MyModalPlug();
+        test3.onclick = function(){
+            myModal.show('我是信息','确定','取消',btnevents);
+        };
+        function btnevents(ev){
+            console.log(ev.className);
+            if(ev.className == 'rightBtn btnStyle js-hasBtn'){
+                myModal.closeMark();
+            }else{
+                //点击确定之后触发的事件
+            }
+        }
+
+    }
+</script>
+</html>
