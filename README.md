@@ -23,5 +23,7 @@
  
  新增了基于jquery的插件jquery.json.js：这个插件实现了JSON对象与JSON字符串之间的转换。尽管可以用js自带的objstr=JSON.stringify(obj)/JSON.parse()、eval()转换，但是用这个插件将更智能的获取JSON字符串的值：$.evalJSON(objstr).name，同时用了这个插件，JSON对象转JSON字符串就很简单了objstr=$.toJSON(obj)。
  
+ 新增了myPlug文件夹：错误提示框和带按钮的消息弹框。
+ 
  
  
