@@ -42,6 +42,7 @@ var myPopPlug={
 /*
 * 带按钮（确定、取消）的消息弹框
 * 首先放出来的接口有：具体信息msg、左边按钮的字leftbtn、右边按钮的字rightbtn、回调方法、关闭弹框方法
+* 调用：var eve = new MyModalPlug(); eve.show('信息','确定','取消',fn);
 * */
 function MyModalPlug(){
      this.myMark = document.createElement('div'); //遮罩层
@@ -68,8 +69,9 @@ function MyModalPlug(){
          _this.myBtn.appendChild(_this.rightBtn);
          _this.myModal.appendChild(_this.myBtn);
      };
-    this.show = function(msg,leftbtn,rightbtn,fn){   //放出展示的接口
+     this.show = function(msg,leftbtn,rightbtn,fn){   //放出展示的接口
         this.myMark.style.display = 'block';
+        this.myModal.style.display = 'block';
         this.myMsg.innerHTML = msg;
         this.leftBtn.innerHTML = leftbtn;
         this.rightBtn.innerHTML = rightbtn;
@@ -83,15 +85,12 @@ function MyModalPlug(){
             }
         };
         this.setPosition();
-    };
-    init(this);
+     };
+     return init(this);
 }
 MyModalPlug.prototype.setPosition = function(){
     var left = Number(window.innerWidth/2 - this.myModal.offsetWidth/2);
     var top = Number(window.innerHeight/2 - this.myModal.offsetHeight/2);
-    console.log(this.myModal.offsetWidth);
-    console.log(this.myModal.offsetHeight);
-    console.log(top,left);
     this.myModal.style.cssText = 'display:block;top:'+top+'px;left:'+left+'px;';
 };
 MyModalPlug.prototype.closeMark = function(){
