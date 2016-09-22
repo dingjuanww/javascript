@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>测试自执行函数</title>
+</head>
+<body>
+    <div>测试自执行函数</div>
+</body>
+<script>
+//  定义函数有两种：一种是直接申明函数，另一个是函数表达式来定义函数
+//    (function(){
+//        var user='';
+//        function Box(value){  //这种写法是不对的，将Box变成了私有函数，外界是无法访问到，只有内部访问
+//            console.log(123);
+//            user = value;
+//        }
+//    })();
+//    var mark = new Box('name');  //执行结果是Box is not defined
+    (function(){
+        var user = '';  //一旦加了var 就变为函数内私有的变量了。
+        Box = function(value){  //采用函数表达式来声明函数，就变成了全局函数，这里不能用var定义Box，不然就变成了变量Box提升了，函数还是成了私有函数，执行结果也是Box is not defined
+            user = value;
+            console.log(user);
+        };
+        Box.prototype.getUser = function(){
+            return user;
+        };
+    })();
+    var mark = new Box('name');  //执行结果是name
+    console.log(mark.getUser());
+
+    //面试中前端的一些题目
+     //1、判断一个字符串中出现次数最多的字符，统计这个次数
+     var str = 'asdfssaaasasasasaa';
+     var obj = {};
+     for(var i = 0; i < str.length; i++){ //将字符串转为以出现次数为value的对象
+//        console.log(obj);
+        if(obj[str.charAt(i)] == null) {
+            //这里就是判断对象的属性值是否存在 if(obj[str.charAt(i)]===undefined){}，也可以这样写 !obj[str.charAt(i)]
+            //关于获取对象属性的时候判断：if(x == null)或者if(typeof x =='undefined')可以等价于if(!x)，反之if(x)表示x非空。
+            obj[str.charAt(i)] = 1;
+        }else{
+            obj[str.charAt(i)]++;
+        }
+     }
+     console.log(obj);  //输出：Object{a: 9, s: 7, d: 1, f: 1}
+     var iMax = 0;
+     var iIndex = '';
+     for(var j in obj){
+        if(obj[j]>iMax){
+            iMax = obj[j];
+            iIndex = j;
+        }
+     }
+     console.log('出现次数最多的是:'+iIndex+' 出现了'+iMax+'次');
+
+     //2、定义一个对象并赋值，最后生成字符串对象
+     var jsObj = {};
+     jsObj.testArray = [1,2,3,4,5];
+     jsObj.name = 'CSS3';
+     jsObj.date = '8 May, 2011';
+     var str = JSON.stringify(jsObj);
+     console.log(str);
+
+     //3、__proto__属性（要了解原型链的概念了）
+     var Person = function(){};
+     Person.prototype.Say = function(){
+         console.log('1234');
+     };
+     var p = new Person();
+     console.log(p.constructor == Person); //打印出的是true
+     console.log(p.__proto__ == Person.prototype); //打印出的是true
+     p.Say(); //打印出的是1234  通常我们都这么调用，那么当我们调用p.Say()时，首先p中没有Say这个属性，于是，他就需要到他的__proto__中去找，也就是Person.prototype，而我们在上面定义了Person.prototype.Say=function(){}; 于是，就找到了这个方法。
+
+
+     //4、判断undefined的值
+     var str1='',str2;
+     if(str1===undefined){document.write('str1是undefined');}
+     if(str2===undefined){document.write('str2是undefined');}
+     if(typeof str3 == 'undefined'){document.write('str3是undefined');} //运行了，页面还输出了
+     if(str3===undefined){document.write('str3是undefined');} //运行了，但是会报错，str3是is not defined
+    
+
+</script>
+</html>
