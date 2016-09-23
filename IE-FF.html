@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>IE与FF兼容性写法</title>
+</head>
+<body>
+    <div>测试IE与FF兼容性</div>
+</body>
+    <script type="text/javascript">
+        /* window.event
+        *  IE：有window.event对象
+        *  FF：没有window.event对象。可以通过给函数参数传递event对象。如onmousemove=doThing(event);
+        *  解决方法：var event = event || window.event
+        * */
+        function eventTest(event){
+            var event = event || window.event;
+            //do something
+        }
+
+        /* 鼠标当前坐标
+        *  IE：event.x和event.y
+        *  FF：event.pageX和event.pageY
+        *  通用：两者都有event.clientX和event.clientY
+        * */
+        var X = event.clientX;
+        var Y = event.clientY;
+
+        /* 鼠标当前坐标（加上滚动条滚过的距离）
+        *  IE：event.offsetX和event.offsetY
+        *  FF：event.layerX和event.layerY
+        *  解决方法：|| 或者 ? '':''来处理
+        * */
+        function scrollTest(e){
+            var ev = e ? e : window.event; //or e || window.event
+            var x = ev.offsetX || ev.layerX;
+            var y = ev.offsetY || ev.layerY;
+        }
+
+        /* event.srcElement问题
+        *  IE：event对象有srcElement属性，但是没有target属性
+        *  FF：Firefox下，even对象有target属性，但是没有srcElement属性。
+        *  解决方法：|| 或者 ? '':''来处理
+        * */
+        var objTarget = e.target ? e.target : e.srcElement;
+
+        /* 获取标签的x和y的坐标：style.posLeft 和 style.posTop
+        *  IE：有
+        *  FF：没有
+        *  通用：object.offsetLeft和object.offsetTop，object是元素节点
+        * */
+        var LEFT = object.offsetLeft;
+        var TOP = object.offsetTop;
+
+        /* 获取窗口宽度和高度
+        *  IE：document.body.offsetWidth和document.body.offsetHeight此时页面一定要有body标签
+        *  FF：window.innerWidth和window.innerHeight，还可以是
+        *      document.documentElement.clientWidth和document.documentElement.clientHeight
+        *  通用document.body.clientWidth和document.body.clientHeight
+        * */
+        var WIDTH = document.body.clientWidth;
+        var HEIGHT = document.body.clientHeight;
+        console.log(WIDTH,HEIGHT);
+
+        /* 画图
+        *  IE：VML。
+        *  FF：SVG。
+        * */
+
+        /* CSS：透明
+        *  IE：filter:progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=60)
+        *  FF：opacity:0.6。
+        * */
+
+        /* CSS：圆角
+        *  IE：不支持圆角。
+        *  FF：-moz-border-radius:4px，
+        *     或者-moz-border-radius-topleft:4px;-moz-border-radius-topright:4px;
+                  -moz-border-radius-bottomleft:4px;-moz-border-radius- bottomright:4px;
+        * */
+
+        /* CSS：双线凹凸边框
+        *  IE：border:2px outset;
+        *  FF：-moz-border-top-colors: #d4d0c8 white;-moz-border-left-colors: #d4d0c8 white;
+         -moz-border-right-colors:#404040 #808080;-moz-border-bottom-colors:#404040 #808080;
+        * */
+
+    </script>
+</html>
